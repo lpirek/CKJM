@@ -45,13 +45,27 @@ public class MfaClassVisitor extends AbstractClassVisitor {
 
     @Override
     protected void visitJavaClass_body(JavaClass jc) {
-        JavaClass parent = jc.getSuperClass();
+        try {
+			JavaClass parent = jc.getSuperClass();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         double pNumOfMeth=0;
-        JavaClass parents[] = jc.getSuperClasses();
-        for( JavaClass p : parents ){
-            pNumOfMeth += getNumOfMethods(p);
-        }
+        JavaClass parents[] = null;
+		try {
+			parents = jc.getSuperClasses();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (parents != null)
+		{
+	        for( JavaClass p : parents ){
+	            pNumOfMeth += getNumOfMethods(p);
+	        }
+		}
 
         double cNumOfMeth = getNumOfMethods( jc );
 

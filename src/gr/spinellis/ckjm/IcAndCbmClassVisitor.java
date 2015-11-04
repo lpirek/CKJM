@@ -62,7 +62,12 @@ public class IcAndCbmClassVisitor extends AbstractClassVisitor {
     protected void visitJavaClass_body(JavaClass jc) {
         mCase1 = mCase2 = mCase3 = 0;
         mCurrentClass = jc;
-        mParents = jc.getSuperClasses();
+        try {
+			mParents = jc.getSuperClasses();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         mParentsMethods = new ArrayList<Method[]>();
         mMethods = jc.getMethods();
         mInvokationsFromParents = new TreeSet<MethodInvokation>();
