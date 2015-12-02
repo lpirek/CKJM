@@ -1,0 +1,25 @@
+<project name="myproject" default="ckjm">
+
+<target name="compile">
+  <!-- your compile instructions -->
+</target>
+
+<target name="ckjm" depends="compile">
+
+  <taskdef name="ckjm" classname="gr.spinellis.ckjm.ant.CkjmTask">
+    <classpath>
+      <pathelement location="libs/ckjm-1.9.jar"/>
+    </classpath>
+  </taskdef>
+
+  <ckjm outputfile="ckjm.xml" format="xml" classdir="classes">
+    <include name="**/*.class" />
+    <exclude name="**/*Test.class" />
+  </ckjm>
+
+  <xslt in="ckjm.xml" style="xsl/ckjm.xsl" out="ckjm.html" />
+</target>
+
+
+
+</project> 
